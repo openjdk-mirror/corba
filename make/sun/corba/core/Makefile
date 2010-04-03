@@ -52,7 +52,11 @@ include $(CORBA_JMK_DIRECTORY)sun_corba.jmk
 
 ifdef STANDALONE_CORBA_WS
 # FIXUP: What is this all about?
-OTHER_LDFLAGS=-L$(BOOTDIR)/jre/lib/$(ARCH) -L$(BOOTDIR)/jre/lib/$(LIBARCH)/native_threads -ljvm
+# Native libraries are in:
+# - the lib/<arch> directory for the modules image
+# - the jre/lib/<arch> directory for the legacy image
+OTHER_LDFLAGS=-L$(BOOTDIR)/lib/$(ARCH) 
+OTHER_LDFLAGS+=-L$(BOOTDIR)/jre/lib/$(ARCH) -L$(BOOTDIR)/jre/lib/$(LIBARCH)/native_threads -ljvm
 OTHER_INCLUDES+=-ICClassHeaders -I$(BOOTDIR)/include -I$(BOOTDIR)/include/$(PLATFORM)
 else
 OTHER_LDLIBS=$(JVMLIB)

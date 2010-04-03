@@ -564,7 +564,11 @@ endif
 # the library itself should not.
 #
 VM_NAME         = server
-JVMLIB		= -L$(BOOTDIR)/jre/lib/$(LIBARCH)/server -ljvm
+#
+# Native libraries are in:
+# - the lib/<arch> directory for the modules image
+# - the jre/lib/<arch> directory for the legacy image
+JVMLIB		= -L$(BOOTDIR)/lib/$(LIBARCH)/server -L$(BOOTDIR)/jre/lib/$(LIBARCH)/server -ljvm
 JAVALIB		=
 
 # Part of INCREMENTAL_BUILD mechanism.

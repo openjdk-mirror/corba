@@ -259,8 +259,12 @@ endif
 # the library itself should not.
 #
 VM_NAME         = server
-JVMLIB          = -L$(BOOTDIR)/jre/lib/$(LIBARCH)/$(VM_NAME) -ljvm
-JAVALIB         = -L$(BOOTDIR)/jre/lib/$(LIBARCH) -ljava $(JVMLIB)
+#
+# Native libraries are in:
+# - the lib/<arch> directory for the modules image
+# - the jre/lib/<arch> directory for the legacy image
+JVMLIB          = -L$(BOOTDIR)/lib/$(LIBARCH)/$(VM_NAME) -L$(BOOTDIR)/jre/lib/$(LIBARCH)/$(VM_NAME) -ljvm
+JAVALIB         = -L$(BOOTDIR)/lib/$(LIBARCH) -L$(BOOTDIR)/jre/lib/$(LIBARCH) -ljava $(JVMLIB)
 
 #
 # We want to privatize JVM symbols on Solaris. This is so the user can
