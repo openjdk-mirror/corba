@@ -58,9 +58,9 @@ endif
 
 # Options for hotspot to turn off printing of options with fastdebug version
 #   and creating the hotspot.log file.
-JAVA_HOTSPOT_DISABLE_PRINT_VMOPTIONS = \
-   -XX:-PrintVMOptions -XX:+UnlockDiagnosticVMOptions -XX:-LogVMOutput
-
+JAVA_HOTSPOT_DISABLE_PRINT_VMOPTIONS =
+   
+# -XX:-PrintVMOptions -XX:+UnlockDiagnosticVMOptions -XX:-LogVMOutput
 # JVM options
 JAVA_JVM_FLAGS = $(JAVA_HOTSPOT_DISABLE_PRINT_VMOPTIONS)
 
@@ -131,26 +131,31 @@ TARGET_CLASS_VERSION = 7
 CLASS_VERSION = -target $(TARGET_CLASS_VERSION)
 JAVACFLAGS  += $(CLASS_VERSION)
 JAVACFLAGS  += -encoding ascii
-JAVACFLAGS  += -classpath $(BOOTDIR)/lib/tools.jar
+#JAVACFLAGS  += -classpath $(BOOTDIR)/lib/tools.jar
+JAVACFLAGS  += -classpath $(BOOTDIR)/lib/rt.jar
 JAVACFLAGS  += $(OTHER_JAVACFLAGS)
 
 # Langtools
-ifdef LANGTOOLS_DIST
-  JAVAC_JAR   = $(LANGTOOLS_DIST)/bootstrap/lib/javac.jar
-  JAVADOC_JAR = $(LANGTOOLS_DIST)/bootstrap/lib/javadoc.jar
-  DOCLETS_JAR = $(LANGTOOLS_DIST)/bootstrap/lib/doclets.jar
-  JAVAC_CMD   = $(BOOT_JAVA_CMD) \
-		"-Xbootclasspath/p:$(JAVAC_JAR)" \
-		-jar $(JAVAC_JAR) $(JAVACFLAGS)
-  JAVADOC_CMD = $(BOOT_JAVA_CMD) \
-		"-Xbootclasspath/p:$(JAVADOC_JAR)$(CLASSPATH_SEPARATOR)$(JAVAC_JAR)$(CLASSPATH_SEPARATOR)$(DOCLETS_JAR)" \
-		-jar $(JAVADOC_JAR)
-else
-  # If no explicit tools, use boot tools (add VM flags in this case)
-  JAVAC_CMD     = $(JAVA_TOOLS_DIR)/javac $(JAVAC_JVM_FLAGS) \
-		  $(JAVACFLAGS)
-  JAVADOC_CMD   = $(JAVA_TOOLS_DIR)/javadoc $(JAVA_TOOLS_FLAGS:%=-J%)
-endif
+#ifdef LANGTOOLS_DIST
+#  JAVAC_JAR   = $(LANGTOOLS_DIST)/bootstrap/lib/javac.jar
+#  JAVADOC_JAR = $(LANGTOOLS_DIST)/bootstrap/lib/javadoc.jar
+#  DOCLETS_JAR = $(LANGTOOLS_DIST)/bootstrap/lib/doclets.jar
+#  JAVAC_CMD   = $(BOOT_JAVA_CMD) \
+#		"-Xbootclasspath/p:$(JAVAC_JAR)" \
+#		-jar $(JAVAC_JAR) $(JAVACFLAGS)
+#  JAVADOC_CMD = $(BOOT_JAVA_CMD) \
+#		"-Xbootclasspath/p:$(JAVADOC_JAR)$(CLASSPATH_SEPARATOR)$(JAVAC_JAR)$(CLASSPATH_SEPARATOR)$(DOCLETS_JAR)" \
+#		-jar $(JAVADOC_JAR)
+#else
+#  # If no explicit tools, use boot tools (add VM flags in this case)
+#  JAVAC_CMD     = $(JAVA_TOOLS_DIR)/javac $(JAVAC_JVM_FLAGS) \
+#		  $(JAVACFLAGS)
+#  JAVADOC_CMD   = $(JAVA_TOOLS_DIR)/javadoc $(JAVA_TOOLS_FLAGS:%=-J%)
+#endif
+
+JAVAC_CMD     = $(JAVA_TOOLS_DIR)/javac $(JAVAC_JVM_FLAGS) \
+	  $(JAVACFLAGS)
+JAVADOC_CMD   = $(JAVA_TOOLS_DIR)/javadoc $(JAVA_TOOLS_FLAGS:%=-J%)
 
 # Override of what javac to use (see deploy workspace)
 ifdef JAVAC

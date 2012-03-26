@@ -172,7 +172,7 @@ $(LOG_GENDIRECTORY)/UtilSystemException.resource : $(UTIL.MC)
 ACTIVATIONFILES = $(com_sun_corba_se_spi_activation_java:%=$(GENSRCDIR)/%)
 
 $(ACTIVATIONFILES): $(ACTIVATION.IDL)
-	$(IDLJ) -td $(GENSRCDIR) -i $(ACTIVATIONFILEDIR) -fall -oldImplBase -pkgPrefix activation com.sun.corba.se.spi $(ACTIVATION.IDL)
+#	$(IDLJ) -td $(GENSRCDIR) -i $(ACTIVATIONFILEDIR) -fall -oldImplBase -pkgPrefix activation com.sun.corba.se.spi $(ACTIVATION.IDL)
 
 activation.idl.compile: $(ACTIVATIONFILES)
 
@@ -195,7 +195,7 @@ PORTABLEACTIVATION_PKG_PREFIXES = -pkgPrefix PortableInterceptor org.omg \
 
 # REVISIT: remove -oldImplBase
 $(PORTABLEACTIVATIONFILES): $(PORTABLEACTIVATION.IDL)
-	$(IDLJ) -td $(GENSRCDIR) $(PORTABLEACTIVATION_INCLUDES) $(PORTABLEACTIVATION_PKG_PREFIXES) -fall -oldImplBase -corba 3.0 -D CORBA3 $(PORTABLEACTIVATION.IDL)
+#	$(IDLJ) -td $(GENSRCDIR) $(PORTABLEACTIVATION_INCLUDES) $(PORTABLEACTIVATION_PKG_PREFIXES) -fall -oldImplBase -corba 3.0 -D CORBA3 $(PORTABLEACTIVATION.IDL)
 
 portableactivation.idl.compile: $(PORTABLEACTIVATIONFILES)
 
