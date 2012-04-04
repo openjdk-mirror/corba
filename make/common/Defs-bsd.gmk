@@ -1,5 +1,5 @@
 #
-# Copyright (c) 1998, 2005, Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 1999, 2010, Oracle and/or its affiliates. All rights reserved.
 # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
 #
 # This code is free software; you can redistribute it and/or modify it
@@ -24,20 +24,23 @@
 #
 
 #
-# Makefile for building the stripproperties tool
+# Makefile to specify compiler flags for programs and libraries
+# targeted to BSD.  Should not contain any rules.
 #
 
-BUILDDIR = ../..
-PACKAGE = build.tools.stripproperties
-PRODUCT = tools
-PROGRAM = stripproperties
-include $(BUILDDIR)/common/Defs.gmk
+# Warning: the following variables are overriden by Defs.gmk. Set
+# values will be silently ignored:
+#   CFLAGS        (set $(OTHER_CFLAGS) instead)
+#   CPPFLAGS      (set $(OTHER_CPPFLAGS) instead)
+#   CXXFLAGS      (set $(OTHER_CXXFLAGS) instead)
+#   LDFLAGS       (set $(OTHER_LDFAGS) instead)
+#   LDLIBS        (set $(EXTRA_LIBS) instead)
+#   LDLIBS_COMMON (set $(EXTRA_LIBS) instead)
 
-BUILDTOOL_SOURCE_ROOT = $(BUILDDIR)/tools/src
-BUILDTOOL_MAIN        = $(PKGDIR)/StripPropertiesCorba.java
+# Get shared JDK settings
+include $(BUILDDIR)/common/shared/Defs.gmk
 
-#
-# Build tool jar rules.
-#
-include $(BUILDDIR)/common/BuildToolJar.gmk
+ifndef PLATFORM_SRC
+  PLATFORM_SRC = $(TOPDIR)/src/solaris
+endif # PLATFORM_SRC
 
