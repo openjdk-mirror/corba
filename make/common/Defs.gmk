@@ -50,9 +50,6 @@ include $(TOPDIR)/make/common/CancelImplicits.gmk
 ifndef SHARE_SRC
   SHARE_SRC    = $(TOPDIR)/src/share
 endif
-ifndef JDK_SRC
-  JDK_SRC = $(JDK_TOPDIR)/src/share
-endif
 
 _OUTPUTDIR=$(TOPDIR)/build/$(PLATFORM)-$(ARCH)
 
@@ -89,8 +86,7 @@ BUILDTOOLCLASSDIR   = $(OUTPUTDIR)/btclasses
 BUILDTOOLJARDIR     = $(OUTPUTDIR)/btjars
 ABS_BUILDTOOLJARDIR = $(ABS_OUTPUTDIR)/btjars
 # for generated java source files
-# We want to pick this up from the user
-# GENSRCDIR           = $(OUTPUTDIR)/gensrc
+GENSRCDIR           = $(OUTPUTDIR)/gensrc
 # for imported source files
 IMPORTSRCDIR        = $(OUTPUTDIR)/impsrc
 # for imported documents
@@ -105,10 +101,10 @@ DOCSDIRSUFFIX       =
 
 # An attempt is made to generate unique enough directories for the
 # generated files to not have name collisisons. Most build units
-# defines PRODUCT (except Release.gmk), but then they may or may
-# not define PACKAGE, THREADIR (only HPI uses this), PROGRAM, and
-# LIBRARY. This code chunk attempts to generate a unique
-# OBJDIR/CLASSHDRDIR for each build unit based on which of those
+# defines PRODUCT (except Release.gmk), but then they may or may 
+# not define PACKAGE, THREADIR (only HPI uses this), PROGRAM, and 
+# LIBRARY. This code chunk attempts to generate a unique 
+# OBJDIR/CLASSHDRDIR for each build unit based on which of those 
 # values are set within each build unit.
 
 UNIQUE_LOCATION_STRING = tmp
@@ -137,7 +133,7 @@ ifneq ($(THREADDIR),)
   UNIQUE_LOCATION_STRING += /$(THREADDIR)
 endif
 
-# the use of += above makes a space separated list which we need to
+# the use of += above makes a space separated list which we need to 
 # remove for filespecs.
 #
 NULLSTRING :=
@@ -171,8 +167,7 @@ endif
 # We define an intermediate variable for Java files because
 # we use its value later to help define $SOURCEPATH
 
-#VPATH0.java = $(GENSRCDIR)$(CLASSPATH_SEPARATOR)$(PLATFORM_SRC)/classes$(CLASSPATH_SEPARATOR)$(SHARE_SRC)/classes
-VPATH0.java = $(GENSRCDIR)$(CLASSPATH_SEPARATOR)$(PLATFORM_SRC)/classes$(CLASSPATH_SEPARATOR)$(SHARE_SRC)/classes$(CLASSPATH_SEPARATOR)$(JDK_SRC)/classes
+VPATH0.java = $(GENSRCDIR)$(CLASSPATH_SEPARATOR)$(PLATFORM_SRC)/classes$(CLASSPATH_SEPARATOR)$(SHARE_SRC)/classes
 VPATH.java = $(VPATH0.java)
 vpath %.java $(VPATH.java)
 vpath %.class $(CLASSBINDIR)

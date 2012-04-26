@@ -42,8 +42,7 @@ include $(BUILDDIR)/common/Defs.gmk
 # the rmic iiop backend needs some classes that are part of the impl/util
 # package.  These classes use log wrappers, so they must be built after
 # pept and before rmi.
-#SUBDIRS = sources pept corespi core spi impl rmi
-SUBDIRS = org pept corespi core spi impl rmi
+SUBDIRS = sources pept corespi core spi impl rmi
 all build clean clobber::
 	$(SUBDIRS-loop)
 

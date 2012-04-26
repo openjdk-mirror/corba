@@ -93,6 +93,8 @@ POAGENERATEDFILES = $(POA_GENERATED_java:%=$(GENSRCDIR)/%)
 POAHELHOLFILES =    $(POA_GENERATED_HELP_HOL_java:%=$(GENSRCDIR)/%)
 
 $(POAGENERATEDFILES):: $(POA.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" -i "$(SRC_DIR)/org/omg/PortableServer" -i "$(SRC_DIR)/org/omg/PortableInterceptor" -corba 3.0 -fall -pkgPrefix PortableServer org.omg $(POA.IDL)
+	$(RM) -r $(POAHELHOLFILES)
 
 poa.compile: $(POAGENERATEDFILES)
 
@@ -108,6 +110,10 @@ DYNANYDELETEFILES = $(DYNANY_TO_DELETE_FILES:%=$(GENSRCDIR)/%)
 
 # Generating and deleting unused files to reduce images size
 $(DYNANYFILES): $(DYNAMIC_ANY.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" $(DYNANY_IDLJ_FLAGS) $(DYNAMIC_ANY.IDL)
+	$(RM) $(DYNANY_DIR)/*POA*
+	$(RM) $(DYNANY_DIR)/*Holder*
+	$(RM) $(DYNANYDELETEFILES)
 
 dynany.compile: $(DYNANYFILES)
 
@@ -119,6 +125,12 @@ TRGENERATEDFILES = $(TR_GENERATED_java:%=$(GENSRCDIR)/%)
 TR_IDLJ_FLAGS =-i "$(SRC_DIR)/org/omg/PortableInterceptor" -i "$(SRC_DIR)/org/omg/PortableServer" -i "$(SRC_DIR)/org/omg/CosTransactions"
 
 $(TRGENERATEDFILES):: $(COSTRANSACTIONS.IDL) $(COSTSINTEROP.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" $(TR_IDLJ_FLAGS) -D CORBA3 -corba 3.0 -fall -pkgPrefix CORBA org.omg -pkgPrefix CosTransactions org.omg $(COSTRANSACTIONS.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" $(TR_IDLJ_FLAGS) -D CORBA3 -corba 3.0 -fall -pkgPrefix CORBA org.omg -pkgPrefix CosTSInteroperation org.omg $(COSTSINTEROP.IDL)
+#	$(IDLJ) -td "$(GENSRCDIR)" $(TR_IDLJ_FLAGS) -D CORBA3 -corba 3.0 -fall -pkgPrefix CORBA org.omg $(TRANSACTIONS.IDL)
+#	$(IDLJ) -td "$(GENSRCDIR)" $(TR_IDLJ_FLAGS) -D CORBA3 -corba 3.0 -fallTIE -pkgPrefix CORBA org.omg $(TRANSACTIONS.IDL)
+#	$(IDLJ) -td "$(GENSRCDIR)" $(TR_IDLJ_FLAGS) -D CORBA3 -corba 3.0 -fall -pkgPrefix CORBA org.omg $(TRANSACTIONS.IDL)
+#	$(IDLJ) -td "$(GENSRCDIR)" $(TR_IDLJ_FLAGS) -D CORBA3 -corba 3.0 -fallTIE -pkgPrefix CORBA org.omg $(TRANSACTIONS.IDL)
 
 tr.compile: $(TRGENERATEDFILES)
 
@@ -132,6 +144,7 @@ NSGENERATEDFILES = $(NS_GENERATED_java:%=$(GENSRCDIR)/%)
 # _NamingContextImplBase.java and _BindingIteratorImplBase.java files
 # to GENSRC directory. Note that these two classes are deprecated.
 $(NSGENERATEDFILES): $(NAMESERVICE.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" -i $(NAMESERVICEDIR) -fall -pkgPrefix CosNaming org.omg $(NAMESERVICE.IDL)
 
 ns.compile: $(NSGENERATEDFILES)
 
@@ -143,6 +156,8 @@ IOPGENERATEDFILES = $(IOP_java:%=$(GENSRCDIR)/%)
 IOPDELETEFILES =    $(IOP_TO_DELETE_FILES:%=$(GENSRCDIR)/%)
 
 $(IOPGENERATEDFILES):: $(IOP.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" -i "$(SRC_DIR)/org/omg/PortableInterceptor" -i $(CORBA_IDL_DIR) -fall -corba 3.0 -D CORBA3 -pkgPrefix IOP org.omg $(IOP.IDL)
+	$(RM) -r $(IOPDELETEFILES)
 
 iop.compile: $(IOPGENERATEDFILES)
 
@@ -154,6 +169,8 @@ CORBAXGENERATEDFILES = $(CORBA_java:%=$(GENSRCDIR)/%)
 CORBAXDUPLICATEFILES = $(CORBA_DUPLICATE_java:%=$(GENSRCDIR)/%)
 
 $(CORBAXGENERATEDFILES):: $(CORBAX.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" -i "$(SRC_DIR)/org/omg/PortableInterceptor" -i $(CORBA_IDL_DIR) -fall -corba 3.0 $(CORBAX.IDL)
+	$(RM) $(CORBAXDUPLICATEFILES)
 
 corbax.compile: $(CORBAXGENERATEDFILES)
 
@@ -164,6 +181,7 @@ corbax.clean:
 MESSAGINGGENERATEDFILES = $(Messaging_java:%=$(GENSRCDIR)/%)
 
 $(MESSAGINGGENERATEDFILES):: $(MESSAGING.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" -i "$(SRC_DIR)/org/omg/PortableInterceptor" -i $(CORBA_IDL_DIR) -fall -corba 3.0 -pkgPrefix Messaging org.omg $(MESSAGING.IDL)
 
 messaging.compile: $(MESSAGINGGENERATEDFILES)
 
@@ -177,6 +195,8 @@ PIGENERATEDFILES = $(PI_GENERATED_java:%=$(GENSRCDIR)/%)
 PIHELHOLFILES = $(PI_GENERATED_HELP_HOL_java:%=$(GENSRCDIR)/%)
 
 $(PIGENERATEDFILES):: $(INTERCEPTORS.IDL)
+	$(IDLJ) -td "$(GENSRCDIR)" -i "$(SRC_DIR)/org/omg/PortableInterceptor" -i $(CORBA_IDL_DIR) -fall -pkgPrefix PortableInterceptor org.omg -pkgPrefix Dynamic org.omg -pkgPrefix IOP org.omg -corba 3.0 -D CORBA3 $(INTERCEPTORS.IDL)
+	$(RM) $(PIHELHOLFILES)
 
 pi.compile: $(PIGENERATEDFILES)
 
