@@ -150,7 +150,7 @@ $(SRC_ZIP): $(SRC_ZIP_FILES)
 
 #----- bin.zip
 
-BIN_ZIP_FILES = $(BUILD_DIR/lib/orb.idl $(BUILD_DIR)/lib/ir.idl
+BIN_ZIP_FILES = $(BUILD_DIR)/lib/orb.idl $(BUILD_DIR)/lib/ir.idl
 
 BIN_ZIP = $(LIB_DIR)/bin.zip
 $(BIN_ZIP): $(BIN_ZIP_FILES)
