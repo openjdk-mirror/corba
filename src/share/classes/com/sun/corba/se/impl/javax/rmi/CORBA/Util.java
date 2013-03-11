@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1999, 2004, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1999, 2012, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -112,6 +112,9 @@ import com.sun.corba.se.impl.util.JDKBridge;
 import com.sun.corba.se.impl.orbutil.ORBClassLoader;
 import com.sun.corba.se.impl.logging.UtilSystemException;
 import com.sun.corba.se.spi.logging.CORBALogDomains;
+import sun.corba.SharedSecrets;
+import sun.corba.JavaCorbaAccess;
+
 
 /**
  * Provides utility methods that can be used by stubs and ties to
@@ -125,15 +128,29 @@ public class Util implements javax.rmi.CORBA.UtilDelegate
     // Maps targets to ties.
     private static IdentityHashtable exportedServants = new IdentityHashtable();
 
-    private static ValueHandlerImpl valueHandlerSingleton = new ValueHandlerImpl();
+    private static final ValueHandlerImpl valueHandlerSingleton =
+        SharedSecrets.getJavaCorbaAccess().newValueHandlerImpl();
 
     private UtilSystemException utilWrapper = UtilSystemException.get(
                                                   CORBALogDomains.RPC_ENCODING);
 
-    public static Util instance = null;
+    private static Util instance = null;
 
     public Util() {
-        instance = this;
+        setInstance(this);
+    }
+
+    private static void setInstance( Util util ) {
+        assert instance == null : "Instance already defined";
+        instance = util;
+    }
+
+    public static Util getInstance() {
+        return instance;
+    }
+
+    public static boolean isInstanceDefined() {
+        return instance != null;
     }
 
     // Used by TOAFactory.shutdown to unexport all targets for this
