@@ -42,8 +42,6 @@ $(eval $(call SetupJavaCompilation,BUILD_CORBA, \
     EXCLUDES := com/sun/corba/se/PortableActivationIDL, \
     EXCLUDE_FILES := com/sun/corba/se/impl/presentation/rmi/JNDIStateFactoryImpl.java \
         com/sun/corba/se/spi/presentation/rmi/StubWrapper.java \
-        com/sun/org/omg/CORBA/IDLTypeOperations.java \
-        com/sun/org/omg/CORBA/IRObjectOperations.java \
         org/omg/PortableInterceptor/UNKNOWN.java \
         com/sun/tools/corba/se/idl/ResourceBundleUtil.java \
         com/sun/corba/se/impl/presentation/rmi/jndi.properties, \
