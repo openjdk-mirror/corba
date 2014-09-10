@@ -37,7 +37,7 @@ $(eval $(call SetupJavaCompilation,BUILD_INTERIM_CORBA, \
     SETUP := GENERATE_OLDBYTECODE, \
     SRC := $(CORBA_TOPDIR)/src/java.corba/share/classes \
       $(CORBA_TOPDIR)/src/jdk.rmic/share/classes \
-      $(CORBA_OUTPUTDIR)/gensrc/java.corba, \
+      $(SUPPORT_OUTPUTDIR)/gensrc/java.corba, \
     EXCLUDES := com/sun/corba/se/PortableActivationIDL, \
     EXCLUDE_FILES := com/sun/corba/se/impl/presentation/rmi/JNDIStateFactoryImpl.java \
         com/sun/corba/se/spi/presentation/rmi/StubWrapper.java \
