@@ -36,21 +36,21 @@ include SetupJavaCompilers.gmk
 $(eval $(call SetupJavaCompilation,BUILD_TOOLS_CORBA, \
     SETUP := GENERATE_OLDBYTECODE, \
     SRC := $(CORBA_TOPDIR)/make/src/classes, \
-    BIN := $(CORBA_OUTPUTDIR)/tools_classes))
+    BIN := $(BUILDTOOLS_OUTPUTDIR)/corba_bt_classes))
 
-TOOL_LOGUTIL_CMD := $(JAVA) -cp $(CORBA_OUTPUTDIR)/tools_classes \
+TOOL_LOGUTIL_CMD := $(JAVA) -cp $(BUILDTOOLS_OUTPUTDIR)/corba_bt_classes \
     build.tools.logutil.MC
 
 $(eval $(call SetupJavaCompilation,BUILD_IDLJ, \
     SETUP := GENERATE_OLDBYTECODE, \
     SRC := $(CORBA_TOPDIR)/src/java.corba/share/classes, \
-    BIN := $(CORBA_OUTPUTDIR)/idlj_classes, \
+    BIN := $(BUILDTOOLS_OUTPUTDIR)/idlj_classes, \
     COPY := .prp, \
     INCLUDES := com/sun/tools/corba/se/idl, \
     EXCLUDE_FILES := ResourceBundleUtil.java))
 
 # Force the language to english for predictable source code generation.
-TOOL_IDLJ_CMD := $(JAVA) -cp $(CORBA_OUTPUTDIR)/idlj_classes \
+TOOL_IDLJ_CMD := $(JAVA) -cp $(BUILDTOOLS_OUTPUTDIR)/idlj_classes \
     -Duser.language=en com.sun.tools.corba.se.idl.toJavaPortable.Compile
 
 ################################################################################

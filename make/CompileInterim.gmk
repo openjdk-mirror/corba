@@ -47,7 +47,7 @@ $(eval $(call SetupJavaCompilation,BUILD_INTERIM_CORBA, \
     COPY := .prp, \
     CLEAN := .properties, \
     ADD_JAVAC_FLAGS := -bootclasspath "$(BOOT_RTJAR)$(PATH_SEP)$(BOOT_TOOLSJAR)", \
-    BIN := $(CORBA_OUTPUTDIR)/interim_classes, \
+    BIN := $(BUILDTOOLS_OUTPUTDIR)/corba_interim_classes, \
     JAR := $(INTERIM_CORBA_JAR)))
 
 ################################################################################
