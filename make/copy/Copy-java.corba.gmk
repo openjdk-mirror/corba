@@ -23,12 +23,6 @@
 # questions.
 #
 
-# This must be the first rule
-default: all
-
-include $(SPEC)
-include MakeBase.gmk
-
 ################################################################################
 # Copy idl files to jdk/lib.
 $(eval $(call SetupCopyFiles,COPY_IDL, \
@@ -37,4 +31,4 @@ $(eval $(call SetupCopyFiles,COPY_IDL, \
     FILES := $(CORBA_TOPDIR)/src/java.corba/share/classes/com/sun/tools/corba/se/idl/orb.idl \
         $(CORBA_TOPDIR)/src/java.corba/share/classes/com/sun/tools/corba/se/idl/ir.idl))
 
-all: $(COPY_IDL)
+TARGETS := $(COPY_IDL)
