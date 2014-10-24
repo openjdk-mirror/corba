@@ -35,7 +35,8 @@ include SetupJavaCompilers.gmk
 
 $(eval $(call SetupJavaCompilation,BUILD_INTERIM_CORBA, \
     SETUP := GENERATE_OLDBYTECODE, \
-    SRC := $(CORBA_TOPDIR)/src/java.corba/share/classes \
+    SRC := $(JDK_TOPDIR)/src/jdk.rmic/share/classes \
+      $(CORBA_TOPDIR)/src/java.corba/share/classes \
       $(CORBA_TOPDIR)/src/jdk.rmic/share/classes \
       $(SUPPORT_OUTPUTDIR)/gensrc/java.corba, \
     EXCLUDES := com/sun/corba/se/PortableActivationIDL, \
