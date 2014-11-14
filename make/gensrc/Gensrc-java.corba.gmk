@@ -36,9 +36,9 @@ include SetupJavaCompilers.gmk
 $(eval $(call SetupJavaCompilation,BUILD_TOOLS_CORBA, \
     SETUP := GENERATE_OLDBYTECODE, \
     SRC := $(CORBA_TOPDIR)/make/src/classes, \
-    BIN := $(BUILDTOOLS_OUTPUTDIR)/corba_bt_classes))
+    BIN := $(BUILDTOOLS_OUTPUTDIR)/corba_tools_classes))
 
-TOOL_LOGUTIL_CMD := $(JAVA) -cp $(BUILDTOOLS_OUTPUTDIR)/corba_bt_classes \
+TOOL_LOGUTIL_CMD := $(JAVA) -cp $(BUILDTOOLS_OUTPUTDIR)/corba_tools_classes \
     build.tools.logutil.MC
 
 $(eval $(call SetupJavaCompilation,BUILD_IDLJ, \
