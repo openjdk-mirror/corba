@@ -47,7 +47,6 @@ $(eval $(call SetupJavaCompilation,BUILD_INTERIM_CORBA, \
         com/sun/corba/se/impl/presentation/rmi/jndi.properties, \
     COPY := .prp, \
     CLEAN := .properties, \
-    ADD_JAVAC_FLAGS := -bootclasspath "$(BOOT_RTJAR)$(PATH_SEP)$(BOOT_TOOLSJAR)", \
     BIN := $(BUILDTOOLS_OUTPUTDIR)/corba_interim_classes, \
     JAR := $(INTERIM_CORBA_JAR)))
 
